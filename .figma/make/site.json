@@ -1,0 +1,10 @@
+{
+  "description": "This web app helps students track and manage time wasted during classes by logging distractions, providing insights and statistics to enhance productivity.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
