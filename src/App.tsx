@@ -1,6 +1,6 @@
 import { FormEvent, ReactNode, useEffect, useState } from "react";
 
-type Page = "login" | "signup" | "loading" | "timetable" | "create" | "timer" | "stats" | "settings";
+type Page = "login" | "signup" | "timetable" | "create" | "timer" | "stats" | "settings";
 type IconName = "grid" | "clock" | "chart" | "settings" | "logout" | "chevron" | "plus" | "play" | "pause" | "check" | "calendar" | "arrow";
 
 const navItems: { id: Page; label: string; icon: IconName }[] = [
@@ -11,10 +11,12 @@ const navItems: { id: Page; label: string; icon: IconName }[] = [
 ];
 
 const subjects = [
-  { name: "수학", room: "2-3 교실", color: "blue" },
-  { name: "영어", room: "어학실", color: "green" },
-  { name: "과학", room: "과학실", color: "purple" },
-  { name: "국어", room: "2-3 교실", color: "orange" },
+  { name: "자료구조", room: "전205", color: "purple" },
+  { name: "설탕과소금: 사소한것들의역사", room: "멀204", color: "green" },
+  { name: "게임프로그래밍입문(컴퓨터공학과)", room: "B07", color: "blue" },
+  { name: "게임엔진기초(컴퓨터공학과)", room: "B06", color: "orange" },
+  { name: "컴퓨터구조(전자공학)", room: "전B09", color: "blue" },
+  { name: "풀스택서비스네트워킹(컴퓨터공학과)", room: "B09", color: "orange" },
 ];
 
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
@@ -36,64 +38,11 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
 }
 
 function Logo({ light = false }: { light?: boolean }) {
-  return <div className={`logo ${light ? "logo-light" : ""}`}><span className="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6.5 24.5c4-6.5 6.7-1.2 10-6.2 3.2-4.8 5.1-2.7 9-9.8" /><path className="logo-mark-accent" d="m21.5 7 4.2 1.2-1.1 4.4" /><path d="M7.5 8.2c1.9-1.1 4.7-.8 5.8 1.2 1.2 2.2-.1 4.8-2.3 5.8-2 .9-4.6.3-5.4-1.8-.8-2 .1-4.1 1.9-5.2Z" /></svg></span><span>샛길</span></div>;
+  return <div className={`logo ${light ? "logo-light" : ""}`}><span>엄마 미안해</span> </div>;
 }
 
 function BrandWatermark({ mark }: { mark: number }) {
   return <span className="brand-watermark" aria-hidden="true"><img className={`brand-watermark-image mark-${mark}`} src="/brands/campus-marks.png" alt="" /></span>;
-}
-
-type DoodleKind = "wander" | "loading" | "class" | "timer" | "insight" | "receipt";
-
-function Doodle({ kind, className = "" }: { kind: DoodleKind; className?: string }) {
-  const common = { fill: "none", stroke: "currentColor", strokeWidth: 2.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  const drawings: Record<DoodleKind, ReactNode> = {
-    wander: <>
-      <path className="doodle-path" d="M10 109c31-8 29-39 55-36 23 3 16 28 39 25 19-2 25-25 46-23 19 2 20 18 35 17" />
-      <g transform="rotate(-4 82 49)">
-        <path className="doodle-paper" d="M52 20c14-3 34-2 48 2l-2 47c-13-4-31-4-44-1Z" />
-        <path d="M62 34c7-2 18-1 27 1M62 43c10-2 18-1 25 1" />
-        <path d="M69 55c3 3 8 4 12 1" />
-        <circle cx="66" cy="51" r="1.4" className="doodle-dot" />
-        <circle cx="86" cy="50" r="1.4" className="doodle-dot" />
-        <path d="M56 69c-2 8-7 10-11 13M92 69c2 8 7 9 11 12" />
-      </g>
-      <path className="doodle-accent" d="m125 40 5-8 2 9 9 2-8 4-1 9-5-7-9 3 5-7-6-6Z" />
-    </>,
-    loading: <>
-      <path className="doodle-paper" d="M25 18c13-4 30-3 41 1l-2 43c-12-3-26-3-38 0Z" />
-      <circle cx="37" cy="38" r="1.5" className="doodle-dot" />
-      <circle cx="54" cy="37" r="1.5" className="doodle-dot" />
-      <path d="M37 48c4 3 9 3 13-1M28 62c-3 8-9 9-13 12M61 62c3 7 9 8 14 11" />
-      <path className="doodle-accent" d="M17 22c-6 2-9 6-11 12M72 20c6 3 9 7 10 13" />
-    </>,
-    class: <>
-      <path className="doodle-paper" d="M8 14c11-4 23-3 31 2v37c-9-5-20-6-31-2ZM39 16c10-5 21-5 31-1v37c-10-3-21-2-31 2Z" />
-      <path d="M39 16v38M16 27c5-1 10 0 15 2M16 35c5-1 10 0 15 2M48 27c5-2 10-2 15-1" />
-      <path className="doodle-accent" d="m52 41 3 3 7-8" />
-    </>,
-    timer: <>
-      <path className="doodle-paper" d="M17 27c1-12 11-19 25-18 13 1 22 10 21 24-1 14-10 24-25 23-14-1-22-13-21-29Z" />
-      <path d="M40 17v16l10 6M33 4h16M41 4v5" />
-      <circle cx="31" cy="41" r="1.4" className="doodle-dot" />
-      <circle cx="45" cy="43" r="1.4" className="doodle-dot" />
-      <path d="M34 49c3 2 6 2 9 0" />
-      <path className="doodle-accent" d="M9 17 4 13M10 8 8 2M69 18l6-4M67 9l3-6" />
-    </>,
-    insight: <>
-      <path className="doodle-paper" d="M13 49 31 32l13 9 18-25" />
-      <path d="m53 16 9 0 1 10M13 58h50" />
-      <circle cx="31" cy="32" r="3" className="doodle-accent-fill" />
-      <circle cx="13" cy="49" r="3" className="doodle-accent-fill" />
-      <path d="M18 14c6-4 13-5 20-3" />
-    </>,
-    receipt: <>
-      <path className="doodle-paper" d="M18 8c13 3 27-2 42 1l-2 61-7-5-6 5-7-5-7 5-6-6-8 4Z" />
-      <path d="M27 24h23M27 34h17M27 47h8M43 47h8M27 56h24" />
-      <path className="doodle-accent" d="M62 18c5-3 9-7 11-12M66 25l9-2" />
-    </>,
-  };
-  return <svg className={`doodle doodle-${kind} ${className}`} viewBox={kind === "wander" ? "0 0 200 120" : "0 0 80 80"} role="img" aria-label={kind === "loading" ? "샛길 캐릭터가 걸어가는 중" : undefined} aria-hidden={kind !== "loading" || undefined} {...common}>{drawings[kind]}</svg>;
 }
 
 function Button({ children, variant = "primary", onClick, type = "button", className = "" }: { children: ReactNode; variant?: "primary" | "secondary" | "danger"; onClick?: () => void; type?: "button" | "submit"; className?: string }) {
@@ -106,25 +55,25 @@ function AuthLayout({ signup, onNavigate, onComplete }: { signup?: boolean; onNa
     <main className="auth-page">
       <BrandWatermark mark={signup ? 2 : 1} />
       <section className="auth-aside">
-        <Logo light />
+        <div className="auth-top-title"><Logo /><strong>{signup ? "회원가입" : "로그인"}</strong></div>
         <div className="auth-copy">
-          <span className="eyebrow">집중을 기록하는 가장 쉬운 방법</span>
-          <h1>오늘의 샛길이<br />내일의 집중이 되도록.</h1>
-          <p>수업 중 잠깐 새어버린 시간을 솔직하게 기록하고,<br />나만의 집중 패턴을 발견해보세요.</p>
-          <div className="auth-doodle"><Doodle kind="wander" /><span>돌아오는 길도 기록 중</span></div>
+          <span className="eyebrow">딴짓도 했으면 기록은 해야지</span>
+          <h1>교수님 몰래,<br />딴짓은 정직하게.</h1>
+          <p>이미 날아간 집중력은 못 잡습니다.<br />대신 몇 분 날렸는지는 잡아드립니다.</p>
         </div>
         <div className="auth-quote">
           <span>“</span>
-          <p>기록하는 순간, 변화는 이미 시작됩니다.</p>
+          <p>공부 빼고 다 재밌는 당신을 위한 앱.</p>
         </div>
+        <div className="orbit orbit-one" /><div className="orbit orbit-two" />
       </section>
       <section className="auth-form-wrap">
         <div className="auth-form">
           <div className="mobile-logo"><Logo /></div>
-          <span className="form-kicker">{signup ? "새로운 시작" : "다시 만나서 반가워요"}</span>
+          <span className="form-kicker">{signup ? "도망갈 계정부터 생성" : "또 오셨군요, 휴먼"}</span>
           <h2>{signup ? "회원가입" : "로그인"}</h2>
-          <p>{signup ? "샛길과 함께 나의 집중 습관을 만들어보세요." : "오늘도 나의 집중을 가볍게 기록해볼까요?"}</p>
-          <form onSubmit={submit}>
+          <p>{signup ? "가입한다고 집중력이 생기진 않지만 일단 해봅시다." : "오늘도 딴짓할 준비가 아주 잘 되어 있습니다."}</p>
+          <form onSubmit={submit} noValidate>
             {signup && <label>이름<input required placeholder="이름을 입력해주세요" /></label>}
             {signup && <label>등록금<input type="number" min="0" required placeholder="학기 등록금을 입력해주세요" /></label>}
             <label>이메일<input type="email" required placeholder="name@example.com" /></label>
@@ -142,22 +91,6 @@ function AuthLayout({ signup, onNavigate, onComplete }: { signup?: boolean; onNa
   );
 }
 
-function LoadingPage() {
-  return (
-    <main className="loading-page">
-      <BrandWatermark mark={3} />
-      <div className="loading-content">
-        <Logo light />
-        <div className="loading-mark"><Doodle kind="loading" /></div>
-        <div>
-          <h1>집중할 준비를 하고 있어요</h1>
-          <p>잠시만 기다려주세요.</p>
-        </div>
-      </div>
-    </main>
-  );
-}
-
 function Sidebar({ page, setPage, logout }: { page: Page; setPage: (page: Page) => void; logout: () => void }) {
   return (
     <aside className="sidebar">
@@ -167,7 +100,7 @@ function Sidebar({ page, setPage, logout }: { page: Page; setPage: (page: Page) 
         {navItems.map(item => <button key={item.id} className={page === item.id ? "active" : ""} onClick={() => setPage(item.id)}><Icon name={item.icon} /><span>{item.label}</span>{page === item.id && <i />}</button>)}
       </nav>
       <div className="sidebar-bottom">
-        <div className="profile"><div className="avatar">김</div><div><strong>김집중</strong><span>고등학생</span></div><Icon name="chevron" size={16} /></div>
+        <div className="profile"><div className="avatar">전</div><div><strong>전집중</strong><span>대학생</span></div><Icon name="chevron" size={16} /></div>
         <button className="logout" onClick={logout}><Icon name="logout" size={18} /> 로그아웃</button>
       </div>
     </aside>
@@ -184,9 +117,20 @@ function Header({ eyebrow, title, description, action }: { eyebrow: string; titl
 }
 
 function Timetable({ onCreate }: { onCreate: () => void }) {
-  const times = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
+  const times = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
   const days = ["월요일", "화요일", "수요일", "목요일", "금요일"];
-  const [schedule, setSchedule] = useState([["수학", "", "영어", "", "과학"], ["", "국어", "", "수학", ""], ["과학", "", "수학", "", "영어"], ["점심시간", "점심시간", "점심시간", "점심시간", "점심시간"], ["", "영어", "", "국어", ""], ["국어", "", "과학", "", "수학"], ["", "", "동아리", "동아리", ""]]);
+  const [schedule, setSchedule] = useState([
+    ["", "", "", "", ""],
+    ["자료구조", "설탕과소금: 사소한것들의역사", "자료구조", "설탕과소금: 사소한것들의역사", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "게임프로그래밍입문(컴퓨터공학과)", "", "게임프로그래밍입문(컴퓨터공학과)", ""],
+    ["게임엔진기초(컴퓨터공학과)", "", "게임엔진기초(컴퓨터공학과)", "", ""],
+    ["", "컴퓨터구조(전자공학)", "", "컴퓨터구조(전자공학)", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "풀스택서비스네트워킹(컴퓨터공학과)", ""],
+    ["", "", "", "", ""],
+  ]);
   const [subjectMeta, setSubjectMeta] = useState<Record<string, { room: string; cancelled: boolean }>>({});
   const [selected, setSelected] = useState<{ row: number; col: number; name: string; room: string; cancelled: boolean } | null>(null);
   const openSubject = (row: number, col: number, name: string) => {
@@ -201,12 +145,11 @@ function Timetable({ onCreate }: { onCreate: () => void }) {
     setSelected(null);
   };
   return <>
-    <Header eyebrow="MY WEEK" title="이번 주 시간표" description="과목을 선택하면 수업 정보를 확인하고 수정할 수 있어요." action={<Button variant="secondary" onClick={onCreate}><Icon name="plus" size={17} /> 새 시간표</Button>} />
-    <section className="today-card"><div><span className="today-dot" /><div><small>지금 수업 중</small><strong>수학 · 2교시</strong><p>10:00 — 10:50 · 2-3 교실</p></div></div><Doodle kind="class" className="today-doodle" /></section>
+    <Header eyebrow="2026년 2학기" title="PlanA" description="" action={<Button variant="secondary" onClick={onCreate}><Icon name="plus" size={17} /> 시간표 또 만들기</Button>} />
     <section className="schedule-card">
-      <div className="week-control"><button>‹</button><strong>2025년 3월 2주</strong><button>›</button><span>오늘</span></div>
+      <div className="week-control"><strong>2026년 2학기</strong><span>PlanA</span></div>
       <div className="timetable">
-        <div className="table-head"><span>시간</span>{["월 10", "화 11", "수 12", "목 13", "금 14"].map((day, index) => <strong key={day} className={index === 2 ? "is-today" : ""}>{day}</strong>)}</div>
+        <div className="table-head"><span>시간</span>{["월", "화", "수", "목", "금"].map(day => <strong key={day}>{day}</strong>)}</div>
         {times.map((time, row) => <div className="table-row" key={time}><span>{time}</span>{schedule[row].map((subject, col) => {
           const meta = subjectMeta[`${row}-${col}`];
           return <button key={col} onClick={() => openSubject(row, col, subject)} className={subject ? (subject === "점심시간" ? "lunch" : `subject ${subjects.find(item => item.name === subject)?.color || "blue"} ${meta?.cancelled ? "cancelled" : ""}`) : ""}>{subject && <><strong>{subject}{meta?.cancelled && <em>휴강</em>}</strong>{subject !== "점심시간" && <small>{meta?.room || subjects.find(item => item.name === subject)?.room || "특별실"}</small>}</>}</button>;
@@ -261,16 +204,16 @@ function CreateTimetable({ onBack }: { onBack: () => void }) {
 
 function TimerPage() {
   const [seconds, setSeconds] = useState(0);
-  const [running, setRunning] = useState(true);
-  const [saved, setSaved] = useState(false);
-  useEffect(() => { if (!running) return; const id = window.setInterval(() => setSeconds(s => s + 1), 1000); return () => window.clearInterval(id); }, [running]);
+  useEffect(() => { const id = window.setInterval(() => setSeconds(s => s + 1), 1000); return () => window.clearInterval(id); }, []);
   const time = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
   return (
-    <div className="timer-only-page">
+    <div className="timer-only-page timer-large-type">
       <section className="timer-card timer-only-card">
-        <div className="timer-doodle-wrap"><Doodle kind="timer" /><span>잠깐 샛길 산책 중</span></div>
-        <div className={`timer-ring ${running ? "running" : ""}`}><div><span>{running ? "딴짓하는 중" : saved ? "기록 완료" : "준비되면 시작하세요"}</span><strong>{time}</strong><small>오늘 누적 12분 34초</small></div></div>
-        {seconds > 0 && <button className="finish-button" onClick={() => { setRunning(false); setSaved(true); }}>기록하고 수업으로 돌아가기 <Icon name="check" size={18} /></button>}
+        <div className="timer-display">
+          <span>딴짓하는 중</span>
+          <strong>{time}</strong>
+          <small>오늘 누적 12분 34초</small>
+        </div>
       </section>
     </div>
   );
@@ -278,48 +221,37 @@ function TimerPage() {
 
 function Stats() {
   const bars = [32, 48, 25, 66, 42, 20, 36];
-  const wastedMinutes = 102;
-  const semesterTuition = 4_200_000;
-  const semesterClassMinutes = 16 * 5 * 6 * 50;
-  const wastedTuition = Math.round(semesterTuition * (wastedMinutes / semesterClassMinutes) / 10) * 10;
-  const comparisons = [
-    { item: "치킨", amount: (wastedTuition / 20_000).toFixed(1), unit: "마리", note: "닭다리 하나는 간신히 지켰어요" },
-    { item: "말랑이", amount: Math.floor(wastedTuition / 2_500), unit: "개", note: "책상 한쪽이 폭신해질 뻔했어요" },
-    { item: "붕어빵", amount: Math.floor(wastedTuition / 1_000), unit: "개", note: "팥·슈크림 반반도 충분해요" },
+  const foodConversions = [
+    { name: "라면", amount: "약 9.7봉", basis: "봉당 1,200원 기준", image: "/foods/ramen.gif" },
+    { name: "치킨", amount: "약 0.5마리", basis: "마리당 23,000원 기준", image: "/foods/chicken.gif" },
+    { name: "김", amount: "약 23.2봉", basis: "봉당 500원 기준", image: "/foods/gim.gif" },
+    { name: "짜장면", amount: "약 1.7그릇", basis: "그릇당 7,000원 기준", image: "/foods/jjajang.gif" },
   ];
   return <>
-    <Header eyebrow="MY INSIGHT" title="집중 리포트" description="기록을 통해 발견한 이번 주 나의 집중 패턴이에요." action={<Button variant="secondary"><Icon name="calendar" size={17} /> 이번 주</Button>} />
+    <Header eyebrow="숫자는 거짓말 안 함" title="딴짓 성적표" description="당신이 외면한 시간을 굳이 그래프로 만들었습니다."/>
     <div className="metric-grid">
       <div className="metric"><span>이번 주 딴짓 시간</span><strong>1<span>시간</span> 42<span>분</span></strong><small className="good">지난주보다 18분 줄었어요</small></div>
       <div className="metric"><span>평균 집중률</span><strong>84<span>%</span></strong><small className="good">지난주보다 6% 올랐어요</small></div>
-      <div className="metric"><span>가장 집중한 과목</span><strong className="subject-name">과학</strong><small>집중률 93%</small></div>
+      <div className="metric"><span>가장 집중한 과목</span><strong className="subject-name">게임엔진기초</strong><small>집중률 93%</small></div>
     </div>
-    <section className="tuition-card">
-      <div className="tuition-summary">
-        <Doodle kind="receipt" />
-        <div>
-          <span>이번 주 샛길 영수증</span>
-          <strong>{wastedTuition.toLocaleString("ko-KR")}<small>원</small></strong>
-          <p>1시간 42분 동안 등록금이 조용히 산책을 다녀왔어요.</p>
-        </div>
-      </div>
-      <div className="tuition-exchange">
-        <span className="exchange-title">그 돈이면 살 수 있었던 것</span>
-        <div>
-          {comparisons.map(comparison => <article key={comparison.item}>
-            <span>{comparison.item}</span>
-            <strong>{comparison.amount}<small>{comparison.unit}</small></strong>
-            <p>{comparison.note}</p>
-          </article>)}
-        </div>
-      </div>
-      <small className="tuition-basis">학기 등록금 420만 원 · 16주 · 주 30교시 기준의 재미용 환산이에요.</small>
-    </section>
     <div className="stats-grid">
       <section className="chart-card"><div className="card-title"><div><span>일별 딴짓 시간</span><small>단위: 분</small></div><b>주간 평균 14분</b></div><div className="bar-chart">{bars.map((h, i) => <div key={i}><span>{h}</span><i style={{ height: `${h * 2}px` }} className={i === 3 ? "peak" : ""} /><small>{["월", "화", "수", "목", "금", "토", "일"][i]}</small></div>)}</div></section>
-      <section className="chart-card reasons"><div className="card-title"><div><span>딴짓 이유</span><small>이번 주 기준</small></div></div><div className="donut"><div><strong>1시간 42분</strong><span>총 딴짓 시간</span></div></div><ul><li><i className="phone" />휴대폰 <b>42%</b></li><li><i className="blank" />멍때리기 <b>28%</b></li><li><i className="talk" />잡담 <b>18%</b></li><li><i className="etc" />기타 <b>12%</b></li></ul></section>
     </div>
-    <section className="insight-card"><Doodle kind="insight" /><span>이번 주 발견</span><p><b>목요일 4교시</b>에 딴짓 시간이 가장 길었어요. 점심시간 직후에는 가벼운 스트레칭으로 집중력을 깨워보세요.</p></section>
+    <section className="insight-card"><span>팩트 폭격</span><p><b>목요일 4교시</b>에 영혼이 가장 멀리 떠났습니다. 점심 먹고 바로 앉지 말고 복도라도 한 바퀴 도세요.</p></section>
+    <section className="cost-section">
+      <div className="cost-heading">
+        <span>딴짓 비용 환산소</span>
+        <div><strong>이번 주에 날린 등록금</strong><small>먹을 것으로 바꾸면 이만큼입니다. 맛있겠네요.</small></div>
+      </div>
+      <div className="cost-grid">
+        {foodConversions.map(item => (
+          <article className="cost-card" key={item.name}>
+            <img src={item.image} alt={`${item.name} 환산 이미지`} />
+            <div><span>{item.name}</span><strong>{item.amount}</strong><small>{item.basis}</small></div>
+          </article>
+        ))}
+      </div>
+    </section>
   </>;
 }
 
@@ -330,9 +262,9 @@ function Toggle({ active = true }: { active?: boolean }) {
 
 function Settings() {
   return <>
-    <Header eyebrow="PREFERENCES" title="설정" description="샛길을 나에게 꼭 맞게 설정해보세요." />
+    <Header eyebrow="건드리면 바뀜" title="설정실" description="마음에 안 드는 걸 눌러보세요. 책임은 버튼이 집니다." />
     <div className="settings-layout">
-      <section className="settings-card"><h2>프로필</h2><div className="profile-edit"><div className="avatar large">김</div><div><strong>김집중</strong><span>jipjoong@example.com</span><button>프로필 사진 변경</button></div></div><div className="field-row"><label>이름<input defaultValue="김집중" /></label><label>학교 / 학년<input defaultValue="샛길고등학교 · 2학년" /></label></div><Button>변경사항 저장</Button></section>
+      <section className="settings-card"><h2>프로필</h2><div className="profile-edit"><div className="avatar large">전</div><div><strong>전집중</strong><span>jipjoong@example.com</span><button>프로필 사진 변경</button></div></div><div className="field-row"><label>이름<input defaultValue="전집중" /></label><label>학교 / 학년<input defaultValue="경희대학교 · 2학년" /></label></div><Button>변경사항 저장</Button></section>
       <section className="settings-card"><h2>알림 설정</h2><div className="setting-row"><div><strong>수업 시작 알림</strong><span>수업 시작 5분 전에 알려드려요.</span></div><Toggle /></div><div className="setting-row"><div><strong>주간 리포트</strong><span>매주 월요일, 지난 주 집중 기록을 보내드려요.</span></div><Toggle /></div><div className="setting-row"><div><strong>집중 응원 알림</strong><span>기록을 잊지 않도록 가끔 응원을 보내드려요.</span></div><Toggle active={false} /></div></section>
       <section className="settings-card"><h2>계정</h2><div className="setting-row action"><div><strong>비밀번호 변경</strong><span>안전한 계정 관리를 위해 주기적으로 변경해주세요.</span></div><button><Icon name="chevron" /></button></div><div className="setting-row action danger"><div><strong>회원 탈퇴</strong><span>모든 기록과 계정 정보가 영구적으로 삭제됩니다.</span></div><button><Icon name="chevron" /></button></div></section>
     </div>
@@ -341,20 +273,11 @@ function Settings() {
 
 export default function App() {
   const [page, setPage] = useState<Page>("login");
-  const navigate = (target: Page) => {
-    if (target === "login" || target === "signup") {
-      setPage(target);
-      return;
-    }
-    setPage("loading");
-    window.setTimeout(() => setPage(target), 850);
-  };
-  if (page === "loading") return <LoadingPage />;
-  if (page === "login") return <AuthLayout onNavigate={() => setPage("signup")} onComplete={() => navigate("timetable")} />;
-  if (page === "signup") return <AuthLayout signup onNavigate={() => setPage("login")} onComplete={() => navigate("timetable")} />;
-  return <AppShell page={page} setPage={navigate} logout={() => setPage("login")}>
-    {page === "timetable" && <Timetable onCreate={() => navigate("create")} />}
-    {page === "create" && <CreateTimetable onBack={() => navigate("timetable")} />}
+  if (page === "login") return <AuthLayout onNavigate={() => setPage("signup")} onComplete={() => setPage("timetable")} />;
+  if (page === "signup") return <AuthLayout signup onNavigate={() => setPage("login")} onComplete={() => setPage("timetable")} />;
+  return <AppShell page={page} setPage={setPage} logout={() => setPage("login")}>
+    {page === "timetable" && <Timetable onCreate={() => setPage("create")} />}
+    {page === "create" && <CreateTimetable onBack={() => setPage("timetable")} />}
     {page === "timer" && <TimerPage />}
     {page === "stats" && <Stats />}
     {page === "settings" && <Settings />}
